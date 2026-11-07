@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List Manager</title>
+    <style>
+        body {
+            background: linear-gradient(-45deg, #f36a01bf, #ff8c00, #ff4500, #ff6347);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .todo-header {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #taskInput {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        #taskInput:focus {
+            border-color: #ff4500;
+            outline: none;
+        }
+
+        .add-btn {
+            padding: 12px 25px;
+            background: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
+
+        .add-btn:hover {
+            background: #ff6347;
+            transform: scale(1.05);
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f8f8;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .todo-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .todo-text {
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .delete-btn {
+            padding: 8px 12px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List Manager 📝</h1>
+        <div class="todo-header">
+            <input type="text" id="taskInput" placeholder="Enter new task...">
+            <button class="add-btn" onclick="addTask()">Add Task</button>
+        </div>
+        <ul class="todo-list" id="todoList"></ul>
+        <div class="stats">
+            <span>Total tasks: <span id="totalCount">0</span></span>
+            <span style="margin: 0 15px">|</span>
+            <span>Completed: <span id="completedCount">0</span></span>
+        </div>
+    </div>
+
+    <script>
+        // Initialize tasks from localStorage
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        function updateLocalStorage() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('totalCount').textContent = tasks.length;
+            document.getElementById('completedCount').textContent = 
+                tasks.filter(task => task.completed).length;
+        }
+
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            const text = input.value.trim();
+
+            if (text) {
+                tasks.unshift({
+                    id: Date.now(),
+                    text: text,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                });
+
+                input.value = '';
+                renderTasks();
+                updateLocalStorage();
+            }
+        }
+
+        function toggleComplete(id) {
+            tasks = tasks.map(task => 
+                task.id === id ? {...task, completed: !task.completed} : task
+            );
+            renderTasks();
+            updateLocalStorage();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            renderTasks();
+            updateLocalStorage();
+        }
+
+        function renderTasks() {
+            const todoList = document.getElementById('todoList');
+            todoList.innerHTML = tasks.map(task => `
+                <li class="todo-item">
+                    <input type="checkbox" 
+                        ${task.completed ? 'checked' : ''} 
+                        onchange="toggleComplete(${task.id})">
+                    <span class="todo-text ${task.completed ? 'completed' : ''}">
+                        ${task.text}
+                    </span>
+                    <button class="delete-btn" onclick="deleteTask(${task.id})">
+                        Delete
+                    </button>
+                </li>
+            `).join('');
+        }
+
+        // Initial render
+        renderTasks();
+        updateStats();
+
+        // Enter key support
+        document.getElementById('taskInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+    </script>
+</body>
+</html>

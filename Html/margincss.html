@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Margin Demo</title>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(248, 207, 3, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(248, 207, 3, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(248, 207, 3, 0); }
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #3d3d3d 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .margin {
+            margin: 20px auto;
+            background-color: rgb(111, 108, 108);
+            color: rgba(255, 251, 251, 0.58);
+            font-size: 26px;
+            text-align: center;
+            height: 200px;
+            width: 200px;
+            border-radius: 100px;
+            border: 5px solid rgb(248, 221, 85);
+            text-shadow: 3px 2px 3px rgb(85, 93, 57);
+            box-shadow: 0px 10px 40px rgb(248, 207, 3);
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .margin:hover {
+            animation: pulse 1.5s infinite;
+            transform: scale(1.05);
+        }
+        
+        .area {
+            margin: 30px auto 0;
+            height: 40px;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 20px;
+            font-size: 20px;
+            text-align: center;
+            background-color: rgb(248, 221, 85);
+            color: rgb(255, 7, 7);
+            border: 3px solid rgb(85, 93, 57);
+            box-shadow: 0px 10px 40px rgb(248, 207, 3);
+            text-shadow: 3px 2px 3px rgb(85, 93, 57);
+            transition: all 0.3s ease;
+            padding: 5px 15px;
+        }
+        
+        .area:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgb(248, 207, 3);
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 500px) {
+            .margin {
+                width: 150px;
+                height: 150px;
+                font-size: 20px;
+            }
+            
+            .area {
+                font-size: 16px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="margin">
+       <h1>hello <br> margin</h1>
+    </div>
+    <textarea name="" id="" placeholder="write something" class="area"></textarea>
+</body>
+</html>

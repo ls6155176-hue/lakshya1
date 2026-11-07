@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(image/5.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 14px;
+        }
+        input[type="submit"] {
+            padding: 10px 18px;
+            background: #163d37;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Student Information</h1>
+        <hr>
+        <form action="">
+            <label for="class">Select Your Class:</label>
+            <select name="class" id="class">
+                <option value="">Select your Class</option>
+                <option value="B.tech">B.tech</option>
+                <option value="BBA">BBA</option>
+                <option value="BCA">BCA</option>
+                <option value="M.tech">M.tech</option>
+                <option value="MBA">MBA</option>
+                <option value="MCA">MCA</option>
+            </select>
+
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" placeholder="Enter Your Full Name">
+
+            <label for="rollNumber">Your Roll Number:</label>
+            <input type="text" id="rollNumber" placeholder="Enter Your Roll Number">
+
+            <label for="branch">Choose your branch:</label>
+            <select name="branch" id="branch">
+                <option value="">Choose Your Branch</option>
+                <option value="CSE">Computer Science Engineering</option>
+                <option value="ME">Mechanical Engineering</option>
+                <option value="CE">Civil Engineering</option>
+                <option value="EE">Electrical Engineering</option>
+            </select>
+
+            <label for="year">Choose your year:</label>
+            <select name="year" id="year">
+                <option value="">Choose Your Year</option>
+                <option value="1-1">1st Year (1st Sem)</option>
+                <option value="1-2">1st Year (2nd Sem)</option>
+                <option value="2-1">2nd Year (3rd Sem)</option>
+                <option value="2-2">2nd Year (4th Sem)</option>
+                <option value="3-1">3rd Year (5th Sem)</option>
+                <option value="3-2">3rd Year (6th Sem)</option>
+                <option value="4-1">4th Year (7th Sem)</option>
+                <option value="4-2">4th Year (8th Sem)</option>
+            </select>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
